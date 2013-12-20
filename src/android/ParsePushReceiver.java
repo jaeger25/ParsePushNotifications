@@ -12,40 +12,42 @@ import com.parse.*;
 public class ParsePushReceiver extends CordovaPlugin {
 	public final String ACTION_SUBSCRIBE = "subscribe";
 	public final String ACTION_UNSUBSCRIBE = "unsubscribe";
-	
+	public final String ACTION_LAUNCH_STATUS = "launchStatus";
+
 	@Override
 	public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
-		boolean result = false;
-		
-		if(action.equals(ACTION_SUBSCRIBE)) {
-			result = subscribe(args.getString(0), callbackContext);
+		if (action.equals(ACTION_SUBSCRIBE)) {
+			subscribe(args.getString(0), callbackContext);
+		} else if (action.equals(ACTION_UNSUBSCRIBE)) {
+			unsubscribe(args.getString(0), callbackContext);
+		} else if (action.equals(ACTION_LAUNCH_STATUS)) {
+			getLaunchStatus(callbackContext);
 		}
-		else if(action.equals(ACTION_UNSUBSCRIBE)) {
-			result = unsubscribe(args.getString(0), callbackContext);
-		}
-				
-		return result;
-	}
-	
-	public boolean subscribe(String channel, CallbackContext callbackContext)
-	{
-		cordova.getThreadPool().execute(new Runnable() {
-            public void run() {
-            	PushService.subscribe(this.cordova.getActivity(), channel, YOUR_ACTIVITY_CLASS_NAME.class); //TODO: dynamically choose class	
-                callbackContext.success(); // Thread-safe.
-            }
-        });			
+
 		return true;
 	}
-	
-	public boolean unsubscribe(String channel, CallbackContext callbackContext)
-	{
+
+	public void getLaunchStatus(CallbackContext callbackContext) {
+		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, (this.cordova.getActivity() instanceof ParseActivity)));
+	}
+
+	public void subscribe(String channel, CallbackContext callbackContext) {
 		cordova.getThreadPool().execute(new Runnable() {
-            public void run() {
-            	PushService.unsubscribe(this.cordova.getActivity(), channel);	
-                callbackContext.success(); // Thread-safe.
-            }
-        });			
+			public void run() {
+				PushService.subscribe(this.cordova.getActivity(), channel, ParseActivity.class);
+				callbackContext.success(); // Thread-safe.
+			}
+		});
+		return true;
+	}
+
+	public void unsubscribe(String channel, CallbackContext callbackContext) {
+		cordova.getThreadPool().execute(new Runnable() {
+			public void run() {
+				PushService.unsubscribe(this.cordova.getActivity(), channel);
+				callbackContext.success(); // Thread-safe.
+			}
+		});
 		return true;
 	}
 }

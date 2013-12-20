@@ -10,11 +10,9 @@ This plugin allows for Android phonegap applications to receive push notificatio
 
 In (PROJECT_ROOT)\plugins\jaeger.ParsePushNotifications\src\android\ParseApplication.java do the following:
 
-	In the imports, Replace PACKAGE_THAT_CONTAINS_YOUR_ACTIVITY with the package containing your main activity class
-	In the onCreate method, Replace YOUR_ACTIVITY_CLASS with the name of your main activity class	
 	In the onCreate method, Replace PARSE_APPLICATION_ID and PARSE_CLIENT_KEY with the corresponding keys from your Parse application dashboard
 
-In AndroidManifest.xml, add the following attribute to your <application> tag
+In (PROJECT_ROOT)\platforms\android\AndroidManifest.xml, add the following attribute to your <application> tag
 	
 	android:name="org.apache.cordova.plugin.ParseApplication"
 

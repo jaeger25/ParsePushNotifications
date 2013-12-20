@@ -27,4 +27,31 @@ ParsePushNotifications.prototype.unsubscribe = function (channel) {
         }, "ParsePushNotifications", "unsubscribe", [channel]);
 }
 
+/*
+ * callback - function that will be called with one bool parameter indicating whether or not the app was launched via a notification
+ */
+ParsePushNotifications.prototype.isAppLaunchedFromNotification = function (callback) {
+    return cordova.exec(
+        function (result) {
+            callback(result);
+        },
+        function (err) {
+            console.error("Failed to get whether or not app was launched from notification");
+        }, "ParsePushNotifications", "launchStatus", []);
+}
+
+/*
+ * data - the data received from the push notification
+ */
+ParsePushNotifications.prototype._received = function (channel, data) {
+    data = JSON.parse(data);
+
+    var event = document.createEvent("CustomEvent");
+    event.initCustomEvent("ParsePushReceived", false, false, {
+        channel: channel,
+        data: data
+    });
+    window.dispatchEvent(event);
+}
+
 module.exports = new ParsePushNotifications();
