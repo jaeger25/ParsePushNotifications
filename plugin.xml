@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Copyright (c) 2013 4Shot Development. All rights reserved.
+-->
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="jaeger.ParsePushNotifications"
+    version="1.0.0">
+
+  <name>ParsePushNotifications</name>
+  <author>jaeger25</author>
+
+  <js-module src="www/ParsePushNotifications.js" name="ParsePushNotifications">
+    <clobbers target="plugins.parsePushNotifications" />
+  </js-module>
+
+  <dependency id="org.apache.cordova.device" url="https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git" commit="master" subdir="." />
+
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="ParsePushNotifications" >
+        <param name="android-package" value="org.apache.cordova.plugin.ParsePushNotifications"/>
+      </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <service android:name="com.parse.PushService" />
+      <receiver android:name="com.parse.ParseBroadcastReceiver">
+        <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED" />
+          <action android:name="android.intent.action.USER_PRESENT" />
+        </intent-filter>
+      </receiver>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+      <uses-permission android:name="android.permission.VIBRATE" />
+    </config-file>
+    <source-file src="src/android/ParsePushNotifications.java" target-dir="src/org/apache/cordova/plugin" />
+    <source-file src="src/android/libs/Parse-1.3.9.jar" target-dir="libs"/>
+  </platform>
+
+</plugin>
