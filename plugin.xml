@@ -17,7 +17,7 @@
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="ParsePushNotifications" >
-        <param name="android-package" value="org.apache.cordova.plugin.ParsePushNotifications"/>
+        <param name="android-package" value="org.apache.cordova.plugin.ParsePushReceiver"/>
       </feature>
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
@@ -34,8 +34,10 @@
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
       <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
       <uses-permission android:name="android.permission.VIBRATE" />
+      <uses-permission android:name="android.permission.WAKE_LOCK" />
     </config-file>
     <source-file src="src/android/ParseApplication.java" target-dir="src/org/apache/cordova/plugin" />
+    <source-file src="src/android/ParsePushReceiver.java" target-dir="src/org/apache/cordova/plugin" />
     <source-file src="src/android/libs/Parse-1.3.9.jar" target-dir="libs"/>
   </platform>
 
