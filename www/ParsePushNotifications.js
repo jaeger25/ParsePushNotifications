@@ -1,7 +1,5 @@
 var exec = require("cordova/exec");
-var ParsePushNotifications = function() {};
-
-ParsePushNotifications.prototype._videos = {};
+var ParsePushNotifications = function () { };
 
 /*
  * channel - The parse push channel to subscribe this device to
@@ -41,17 +39,18 @@ ParsePushNotifications.prototype.isAppLaunchedFromNotification = function (callb
 }
 
 /*
- * data - the data received from the push notification
+ * callback - function with parameters
+ *      channel - the Parse push channel that sent the notification
+ *      data - data object containing any extra data sent with the notification
  */
-ParsePushNotifications.prototype._received = function (channel, data) {
-    data = JSON.parse(data);
-
-    var event = document.createEvent("CustomEvent");
-    event.initCustomEvent("ParsePushReceived", false, false, {
-        channel: channel,
-        data: data
-    });
-    window.dispatchEvent(event);
+ParsePushNotifications.prototype.getNotificationInfo = function (callback) {
+    return cordova.exec(
+        function (result) {
+            callback(result.channel, JSON.parse(result.data));
+        },
+        function (err) {
+            console.error("Failed to get notfication info");
+        }, "ParsePushNotifications", "notificationInfo", []);
 }
 
 module.exports = new ParsePushNotifications();

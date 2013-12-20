@@ -4,6 +4,8 @@
 
 This plugin allows for Android phonegap applications to receive push notifications from the Parse.com Push Service.
 
+### Usage ###
+
 ### Android Install ###
 
  ``cordova plugin add https://github.com/jaeger25/ParsePushNotifications.git ``

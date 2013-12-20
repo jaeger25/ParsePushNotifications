@@ -36,26 +36,10 @@ public class ParseActivity extends CordovaActivity
         super.onCreate(savedInstanceState);
         super.init();
         
-        Intent intent = getIntent();
+        this.postMessage("ParsePushNotification", null);
         
-        String channel = "";
-        String url = "";        
-        JSONObject data = null;
+        ParseAnalytics.trackAppOpened(getIntent());
         
-        try {
-			data = new JSONObject(intent.getExtras().getString("com.parse.Data"));
-			channel = intent.getExtras().getString("com.parse.Channel");
-			url = data.getString("url");
-		} catch (JSONException e) {
-		}
-        
-        ParseAnalytics.trackAppOpened(intent);
-        
-        if(url == null || url.isEmpty()) {
-        	url = Config.getStartUrl();
-        }
-        
-        super.loadUrl(url);
-        super.loadUrl("javascript:window.plugins.ParsePushNotifications._received(" + channel + "," + data.toString() + ")");
+        super.loadUrl(Config.getStartUrl());
     }
 }
