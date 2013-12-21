@@ -9,6 +9,7 @@
 
   <name>ParsePushNotifications</name>
   <author>jaeger25</author>
+  <repo>https://github.com/jaeger25/ParsePushNotifications.git</repo>
 
   <js-module src="www/ParsePushNotifications.js" name="ParsePushNotifications">
     <clobbers target="plugins.parsePushNotifications" />

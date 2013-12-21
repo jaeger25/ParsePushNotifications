@@ -21,7 +21,7 @@ window.plugins.parsePushNotifications.unsubscribe(channel);
  * callback - function that will be called with one bool parameter indicating whether or not the app was launched via a notification
  */
 window.plugins.parsePushNotifications.isAppLaunchedFromNotification(function(launchedFromNotification){
-	...
+    ...
 });
 
 /*
@@ -30,21 +30,21 @@ window.plugins.parsePushNotifications.isAppLaunchedFromNotification(function(lau
  *      data - data object containing any extra data sent with the notification
  */
 window.plugins.parsePushNotifications.getNotificationInfo(function(channel, data){
-	...
+    ...
 });
 
 
 Example:
 
 window.addEventListener("deviceready", function(){
-	window.plugins.parsePushNotifications.isAppLaunchedFromNotification(function(launchedFromNotification){
-	if(launchedFromNotification){
-		window.plugins.parsePushNotifications.getNotificationInfo(function(channel, data){
-			//Notification launch logic. Use channel and data to do deep linking, etc.
-		});
-	} else {
-		//normal app launch logic
-	}
+    window.plugins.parsePushNotifications.isAppLaunchedFromNotification(function(launchedFromNotification){
+    if(launchedFromNotification){
+        window.plugins.parsePushNotifications.getNotificationInfo(function(channel, data){
+             //Notification launch logic. Use channel and data to do deep linking, etc.
+        });
+    } else {
+        //normal app launch logic
+    }
 });
 }, false);
 
@@ -54,11 +54,11 @@ window.addEventListener("deviceready", function(){
 
 In (PROJECT_ROOT)\plugins\jaeger.ParsePushNotifications\src\android\ParseApplication.java and (PROJECT_ROOT)\platforms\android\src\org\apache\cordova\plugin\ParseApplication.java do the following:
 
-	In the onCreate method, Replace PARSE_APPLICATION_ID and PARSE_CLIENT_KEY with the corresponding keys from your Parse application dashboard
+    In the onCreate method, Replace PARSE_APPLICATION_ID and PARSE_CLIENT_KEY with the corresponding keys from your Parse application dashboard
 
 In (PROJECT_ROOT)\platforms\android\AndroidManifest.xml, add the following attribute to your <application> tag
-	
-	android:name="org.apache.cordova.plugin.ParseApplication"
+    
+    android:name="org.apache.cordova.plugin.ParseApplication"
 
 
 
