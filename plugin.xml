@@ -21,6 +21,12 @@
       </feature>
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/app_name" android:name="org.apache.cordova.plugin.ParseActivity" android:theme="@android:style/Theme.Black.NoTitleBar">
+        <intent-filter>
+          <action android:name="android.intent.action.MAIN" />
+          <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+      </activity>
       <service android:name="com.parse.PushService" />
       <receiver android:name="com.parse.ParseBroadcastReceiver">
         <intent-filter>
